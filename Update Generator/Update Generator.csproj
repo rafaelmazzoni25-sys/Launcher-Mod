@@ -38,7 +38,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cyclic\Redundancy\Check\CRC.cs" />
-    <Compile Include="lForm.cs" />
+    <Compile Include="lForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="lForm.Designer.cs">
+      <DependentUpon>lForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateManifestBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Properties\Settings.cs" />

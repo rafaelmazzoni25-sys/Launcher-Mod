@@ -4,8 +4,8 @@
 // MVID: 232F895E-1583-4AAE-8C54-19D96214944A
 // Assembly location: C:\Users\Rafael Mazzoni\Documents\Ideias de Revenda\RetroSix\Free Mu CMS 1.2.3\Launcher Free\Launcher Free\Client\Launcher.exe
 
+using Launcher.Design;
 using Launcher.Exile;
-using Launcher.Properties;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -46,6 +46,7 @@ namespace Launcher
 
     public MainForm()
     {
+      ThemeManager.EnsureDefaultThemePackage();
       this.InitializeComponent();
       Globals.MainForm = this;
     }
@@ -82,10 +83,10 @@ namespace Launcher
         {
           if (!CRegistry.Update("FullScreenMode", 0))
             return;
-          this.pictureBox4.BackgroundImage = (Image) Resources.windowmode;
+          this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeChecked);
         }
         else if (CRegistry.Update("FullScreenMode", 1))
-          this.pictureBox4.BackgroundImage = (Image) Resources.windowmode_uncheck;
+          this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeUnchecked);
       }
       else if (!Globals.UseSeason12)
       {
@@ -93,20 +94,20 @@ namespace Launcher
         {
           if (!CRegistry.Update("WindowMode", 0))
             return;
-          this.pictureBox4.BackgroundImage = (Image) Resources.windowmode_uncheck;
+          this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeUnchecked);
         }
         else if (CRegistry.Update("WindowMode", 1))
-          this.pictureBox4.BackgroundImage = (Image) Resources.windowmode;
+          this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeChecked);
       }
       else if (LauncherOptions.m_WindowMode == 1)
       {
         LauncherOptions.SetValue(LauncherOptions.m_DevModeIndex, 0, LauncherOptions.m_ID);
-        this.pictureBox4.BackgroundImage = (Image) Resources.windowmode_uncheck;
+        this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeUnchecked);
       }
       else
       {
         LauncherOptions.SetValue(LauncherOptions.m_DevModeIndex, 1, LauncherOptions.m_ID);
-        this.pictureBox4.BackgroundImage = (Image) Resources.windowmode;
+        this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeChecked);
       }
     }
 
@@ -145,6 +146,18 @@ namespace Launcher
     {
       if (!MainForm.IsSingleInstance() && MessageBox.Show(Languages.GetText("ALREADYRUNNING"), Globals.Caption, MessageBoxButtons.OKCancel) == DialogResult.Cancel)
         this.Close();
+      LauncherOptions.GetValue();
+      ThemeManager.EnsureDefaultThemePackage();
+      string themeError;
+      string activeTheme = LauncherOptions.m_Theme;
+      if (!ThemeManager.TryApplyTheme(this, activeTheme, out themeError))
+      {
+        if (!ThemeKeys.EqualsName(activeTheme, ThemeKeys.DefaultThemeName))
+        {
+          if (ThemeManager.TryApplyTheme(this, ThemeKeys.DefaultThemeName, out themeError))
+            LauncherOptions.SetTheme(ThemeKeys.DefaultThemeName);
+        }
+      }
       try
       {
         using (BinaryReader binaryReader = new BinaryReader((Stream) new FileStream(".\\\\mu.ini", FileMode.Open)))
@@ -184,10 +197,9 @@ namespace Launcher
       this.label1.Text = Languages.GetText("WINDOW_MODE");
       if (Globals.UseSeason12)
       {
-        LauncherOptions.GetValue();
         if (LauncherOptions.m_WindowMode != 1)
           return;
-        this.pictureBox4.BackgroundImage = (Image) Resources.windowmode;
+        this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeChecked);
       }
       else
       {
@@ -201,7 +213,7 @@ namespace Launcher
         else
           num = CRegistry.GetValueInt("WindowMode");
         if (num == 1)
-          this.pictureBox4.BackgroundImage = (Image) Resources.windowmode;
+          this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeChecked);
         if (Globals.Language == 0)
         {
           string valueString = CRegistry.GetValueString("LangSelection");
@@ -221,37 +233,37 @@ namespace Launcher
       }
     }
 
-    private void StartButton_MouseDown(object sender, MouseEventArgs e) => this.StartButton.BackgroundImage = (Image) Resources.start_3;
+    private void StartButton_MouseDown(object sender, MouseEventArgs e) => this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonPressed);
 
     private void StartButton_MouseHover(object sender, EventArgs e)
     {
-      this.StartButton.BackgroundImage = (Image) Resources.start_2;
+      this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonHover);
       this.Pic1_Hover = true;
     }
 
     private void StartButton_MouseLeave(object sender, EventArgs e)
     {
-      this.StartButton.BackgroundImage = (Image) Resources.start_1;
+      this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonIdle);
       this.Pic1_Hover = false;
     }
 
-    private void StartButton_MouseUp(object sender, MouseEventArgs e) => this.StartButton.BackgroundImage = (Image) Resources.start_1;
+    private void StartButton_MouseUp(object sender, MouseEventArgs e) => this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonIdle);
 
-    private void pictureBox3_MouseDown(object sender, MouseEventArgs e) => this.pictureBox3.BackgroundImage = (Image) Resources.setting_3;
+    private void pictureBox3_MouseDown(object sender, MouseEventArgs e) => this.pictureBox3.BackgroundImage = ThemeResources.Get(ThemeKeys.SettingsButtonPressed);
 
-    private void pictureBox3_MouseUp(object sender, MouseEventArgs e) => this.pictureBox3.BackgroundImage = (Image) Resources.setting_1;
+    private void pictureBox3_MouseUp(object sender, MouseEventArgs e) => this.pictureBox3.BackgroundImage = ThemeResources.Get(ThemeKeys.SettingsButtonIdle);
 
-    private void ExitButton_MouseDown(object sender, MouseEventArgs e) => this.ExitButton.BackgroundImage = (Image) Resources.exit_3;
+    private void ExitButton_MouseDown(object sender, MouseEventArgs e) => this.ExitButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonPressed);
 
-    private void ExitButton_MouseHover(object sender, EventArgs e) => this.ExitButton.BackgroundImage = (Image) Resources.exit_2;
+    private void ExitButton_MouseHover(object sender, EventArgs e) => this.ExitButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonHover);
 
-    private void ExitButton_MouseLeave(object sender, EventArgs e) => this.ExitButton.BackgroundImage = (Image) Resources.exit_1;
+    private void ExitButton_MouseLeave(object sender, EventArgs e) => this.ExitButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonIdle);
 
-    private void ExitButton_MouseUp(object sender, MouseEventArgs e) => this.ExitButton.BackgroundImage = (Image) Resources.exit_1;
+    private void ExitButton_MouseUp(object sender, MouseEventArgs e) => this.ExitButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonIdle);
 
-    private void pictureBox3_MouseHover(object sender, EventArgs e) => this.pictureBox3.BackgroundImage = (Image) Resources.setting_2;
+    private void pictureBox3_MouseHover(object sender, EventArgs e) => this.pictureBox3.BackgroundImage = ThemeResources.Get(ThemeKeys.SettingsButtonHover);
 
-    private void pictureBox3_MouseLeave(object sender, EventArgs e) => this.pictureBox3.BackgroundImage = (Image) Resources.setting_1;
+    private void pictureBox3_MouseLeave(object sender, EventArgs e) => this.pictureBox3.BackgroundImage = ThemeResources.Get(ThemeKeys.SettingsButtonIdle);
 
     private void webBrowser1_DocumentCompleted(
       object sender,
@@ -265,9 +277,9 @@ namespace Launcher
       if (this.Pic1_Hover || !Globals.EnableStartBTN)
         return;
       if (this.blink)
-        this.StartButton.BackgroundImage = (Image) Resources.start_2;
+        this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonHover);
       else
-        this.StartButton.BackgroundImage = (Image) Resources.start_1;
+        this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonIdle);
       this.blink = !this.blink;
     }
 
@@ -311,7 +323,7 @@ namespace Launcher
       this.Status.TabIndex = 6;
       this.Status.Text = "Status";
       this.StartButton.BackColor = Color.Transparent;
-      this.StartButton.BackgroundImage = (Image) Resources.start_4;
+      this.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonDisabled);
       this.StartButton.Cursor = Cursors.Hand;
       this.StartButton.Enabled = false;
       this.StartButton.Location = new Point(840, 503);
@@ -325,7 +337,7 @@ namespace Launcher
       this.StartButton.MouseHover += new EventHandler(this.StartButton_MouseHover);
       this.StartButton.MouseUp += new MouseEventHandler(this.StartButton_MouseUp);
       this.ExitButton.BackColor = Color.Transparent;
-      this.ExitButton.BackgroundImage = (Image) Resources.exit_1;
+      this.ExitButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonIdle);
       this.ExitButton.Cursor = Cursors.Hand;
       this.ExitButton.Location = new Point(968, 3);
       this.ExitButton.Name = "ExitButton";
@@ -338,7 +350,7 @@ namespace Launcher
       this.ExitButton.MouseHover += new EventHandler(this.ExitButton_MouseHover);
       this.ExitButton.MouseUp += new MouseEventHandler(this.ExitButton_MouseUp);
       this.pictureBox3.BackColor = Color.Transparent;
-      this.pictureBox3.BackgroundImage = (Image) Resources.setting_1;
+      this.pictureBox3.BackgroundImage = ThemeResources.Get(ThemeKeys.SettingsButtonIdle);
       this.pictureBox3.Cursor = Cursors.Hand;
       this.pictureBox3.Enabled = false;
       this.pictureBox3.Location = new Point(947, 3);
@@ -352,7 +364,7 @@ namespace Launcher
       this.pictureBox3.MouseHover += new EventHandler(this.pictureBox3_MouseHover);
       this.pictureBox3.MouseUp += new MouseEventHandler(this.pictureBox3_MouseUp);
       this.pictureBox4.BackColor = Color.Transparent;
-      this.pictureBox4.BackgroundImage = (Image) Resources.windowmode_uncheck;
+      this.pictureBox4.BackgroundImage = ThemeResources.Get(ThemeKeys.WindowModeUnchecked);
       this.pictureBox4.Cursor = Cursors.Hand;
       this.pictureBox4.Enabled = false;
       this.pictureBox4.Location = new Point(818, 541);
@@ -400,7 +412,7 @@ namespace Launcher
       this.webBrowser1.Visible = false;
       this.webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
       this.timer1.Tick += new EventHandler(this.timer1_Tick);
-      this.pictureBox5.BackgroundImage = (Image) Resources.BITMAP154_1;
+      this.pictureBox5.BackgroundImage = ThemeResources.Get(ThemeKeys.ProgressBar);
       this.pictureBox5.BackgroundImageLayout = ImageLayout.Stretch;
       this.pictureBox5.Location = new Point(179, 524);
       this.pictureBox5.Name = "pictureBox5";
@@ -408,7 +420,7 @@ namespace Launcher
       this.pictureBox5.TabIndex = 47;
       this.pictureBox5.TabStop = false;
       this.pictureBox6.BackgroundImageLayout = ImageLayout.Center;
-      this.pictureBox6.Image = (Image) Resources.BITMAP155_1;
+      this.pictureBox6.Image = ThemeResources.Get(ThemeKeys.ProgressOverlay);
       this.pictureBox6.Location = new Point(179, 524);
       this.pictureBox6.Name = "pictureBox6";
       this.pictureBox6.Size = new Size(0, 11);
@@ -417,7 +429,7 @@ namespace Launcher
       this.pictureBox6.TabStop = false;
       this.AutoScaleDimensions = new SizeF(6f, 13f);
       this.AutoScaleMode = AutoScaleMode.Font;
-      this.BackgroundImage = (Image) Resources.BITMAP129_1;
+      this.BackgroundImage = ThemeResources.Get(ThemeKeys.Background);
       this.ClientSize = new Size(990, 560);
       this.Controls.Add((Control) this.pictureBox6);
       this.Controls.Add((Control) this.pictureBox5);
