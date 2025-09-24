@@ -4,7 +4,7 @@
 // MVID: 232F895E-1583-4AAE-8C54-19D96214944A
 // Assembly location: C:\Users\Rafael Mazzoni\Documents\Ideias de Revenda\RetroSix\Free Mu CMS 1.2.3\Launcher Free\Launcher Free\Client\Launcher.exe
 
-using Launcher.Properties;
+using Launcher.Design;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -27,13 +27,13 @@ namespace Launcher.Exile
       {
         Common.ChangeStatus("CHECKCOMPLETE");
         Common.UpdateCompleteProgress(100L);
-        Globals.MainForm.StartButton.BackgroundImage = (Image) Resources.start_1;
+        Globals.MainForm.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonIdle);
         Common.EnableStart();
       }
       else if (FileDownloader.curFile >= Globals.OldFiles.Count)
       {
         Common.ChangeStatus("DOWNLOADCOMPLETE");
-        Globals.MainForm.StartButton.BackgroundImage = (Image) Resources.start_1;
+        Globals.MainForm.StartButton.BackgroundImage = ThemeResources.Get(ThemeKeys.StartButtonIdle);
         Common.EnableStart();
       }
       else

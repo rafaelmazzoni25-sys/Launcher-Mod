@@ -37,8 +37,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cyclic\Redundancy\Check\CRC.cs" />
-    <Compile Include="lForm.cs" />
+    <Compile Include="lForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="lForm.Designer.cs">
+      <DependentUpon>lForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Properties\Settings.cs" />
@@ -47,6 +51,12 @@
   <ItemGroup>
     <EmbeddedResource Include="lForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LauncherSuite.Core\LauncherSuite.Core.csproj">
+      <Project>{6B1D7D5D-0218-43F5-80B0-3F8B87FCE45B}</Project>
+      <Name>LauncherSuite.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
