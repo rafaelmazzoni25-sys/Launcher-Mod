@@ -40,6 +40,12 @@ Este repositório contém três ferramentas legadas relacionadas ao Launcher do 
 - `theme.json` deve mapear as imagens obrigatórias/opcionais e parâmetros (cores, fontes).
 - Definir contratos em `LauncherSuite.Core.Design` para validar, importar, exportar e aplicar temas.
 
+### Persistência do design
+- A aplicação do Launcher agora inicializa um repositório de temas em `./Themes/` exportando automaticamente o tema padrão com o arquivo de manifesto `theme.xml`.
+- O manifesto descreve os assets obrigatórios (ex.: estados dos botões Start/Exit, opções de janela, plano de fundo e componentes da tela de opções) e aponta para arquivos `.png` organizados em subpastas (`images/start`, `images/exit`, `images/options`, etc.).
+- A seleção de tema ativa é persistida no arquivo `LauncherOption.if` através da chave `Theme:<nome>`, permitindo que o gerenciador de design e o launcher retomem o layout customizado entre execuções.
+- O loader de temas valida a presença dos assets exigidos, recarrega as imagens em memória e atualiza dinamicamente os controles do `MainForm` e da janela de opções, eliminando dependências diretas de `Resources.resx`.
+
 ### 5. Evolução do Launcher para suportar temas
 - Adaptar o Launcher existente para carregar recursos de tema via:
   - Lookup em `LauncherSuite.Core.Design` e fallback para recursos embutidos.

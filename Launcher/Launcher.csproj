@@ -35,8 +35,16 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\ThemeAssetCatalog.cs" />
+    <Compile Include="Design\ThemeKeys.cs" />
+    <Compile Include="Design\ThemeManager.cs" />
+    <Compile Include="Design\ThemeManifest.cs" />
+    <Compile Include="Design\ThemeResourceProvider.cs" />
+    <Compile Include="Design\ThemeResources.cs" />
+    <Compile Include="Design\ThemeSurfaceBinding.cs" />
     <Compile Include="Cyclic\Redundancy\Check\CRC.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="MainForm.cs" />
