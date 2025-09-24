@@ -39,6 +39,12 @@
     <Compile Include="DesignManagerControl.Designer.cs">
       <DependentUpon>DesignManagerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuildWorkflowControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BuildWorkflowControl.Designer.cs">
+      <DependentUpon>BuildWorkflowControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -51,6 +57,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DesignManagerControl.resx">
       <DependentUpon>DesignManagerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuildWorkflowControl.resx">
+      <DependentUpon>BuildWorkflowControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

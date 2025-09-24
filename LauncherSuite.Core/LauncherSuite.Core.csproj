@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Build\BuildPipeline.cs" />
     <Compile Include="Configuration\MuConfiguration.cs" />
     <Compile Include="Cyclic\Redundancy\Check\CRC.cs" />
     <Compile Include="Design\ThemeAssetCatalog.cs" />

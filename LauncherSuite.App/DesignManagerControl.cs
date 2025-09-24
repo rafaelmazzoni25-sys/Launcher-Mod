@@ -39,15 +39,36 @@ namespace LauncherSuite.App
             }
         }
 
-        private void CreateThemePackage()
+        public string ThemeName => themeNameTextBox.Text.Trim();
+
+        public string TargetDirectory => outputPathTextBox.Text.Trim();
+
+        public bool IncludeDefaults => includeDefaultsCheckBox.Checked;
+
+        public ThemeManifest GetManifest()
         {
-            var themeName = themeNameTextBox.Text.Trim();
+            var manifest = ThemeManifest.CreateDefault(ThemeName);
+            manifest.Author = authorTextBox.Text.Trim();
+            manifest.Version = versionTextBox.Text.Trim();
+            manifest.Description = descriptionTextBox.Text.Trim();
+            manifest.SeasonCompatibility = compatibilityTextBox.Text.Trim();
+            return manifest;
+        }
+
+        public ThemeCreationResult CreateThemePackage()
+        {
+            return CreateThemePackage(TargetDirectory, IncludeDefaults);
+        }
+
+        public ThemeCreationResult CreateThemePackage(string targetDirectory, bool includeDefaults)
+        {
+            var themeName = ThemeName;
             if (string.IsNullOrEmpty(themeName))
             {
                 throw new InvalidOperationException("Informe um nome para o tema.");
             }
 
-            if (string.IsNullOrWhiteSpace(outputPathTextBox.Text))
+            if (string.IsNullOrWhiteSpace(targetDirectory))
             {
                 throw new InvalidOperationException("Selecione um diretório de destino.");
             }
@@ -59,28 +80,25 @@ namespace LauncherSuite.App
                 throw new InvalidOperationException("O nome do tema contém caracteres inválidos.");
             }
 
-            var manifest = ThemeManifest.CreateDefault(themeName);
-            manifest.Author = authorTextBox.Text.Trim();
-            manifest.Version = versionTextBox.Text.Trim();
-            manifest.Description = descriptionTextBox.Text.Trim();
-            manifest.SeasonCompatibility = compatibilityTextBox.Text.Trim();
-
-            var targetDirectory = Path.Combine(outputPathTextBox.Text, sanitizedThemeName);
-            if (Directory.Exists(targetDirectory) && Directory.EnumerateFileSystemEntries(targetDirectory).Any())
+            var manifest = GetManifest();
+            var fullDirectory = Path.Combine(targetDirectory, sanitizedThemeName);
+            if (Directory.Exists(fullDirectory) && Directory.EnumerateFileSystemEntries(fullDirectory).Any())
             {
                 throw new InvalidOperationException("O diretório selecionado já contém arquivos. Escolha uma pasta vazia.");
             }
 
-            if (includeDefaultsCheckBox.Checked)
+            if (includeDefaults)
             {
-                ThemeManager.ExportBuiltinAssets(targetDirectory, manifest);
+                ThemeManager.ExportBuiltinAssets(fullDirectory, manifest);
                 statusLabel.Text = "Tema criado com os assets padrão.";
             }
             else
             {
-                CreateSkeleton(targetDirectory, manifest);
+                CreateSkeleton(fullDirectory, manifest);
                 statusLabel.Text = "Estrutura do tema criada. Adicione suas imagens e edite o theme.xml.";
             }
+
+            return new ThemeCreationResult(fullDirectory, manifest);
         }
 
         private static void CreateSkeleton(string targetDirectory, ThemeManifest manifest)
@@ -99,5 +117,29 @@ namespace LauncherSuite.App
 
             manifest.Save(targetDirectory);
         }
+
+        public string GetThemeDirectory(string rootDirectory)
+        {
+            if (string.IsNullOrWhiteSpace(rootDirectory))
+            {
+                throw new InvalidOperationException("Selecione um diretório de destino.");
+            }
+
+            var themeName = ThemeName;
+            if (string.IsNullOrEmpty(themeName))
+            {
+                throw new InvalidOperationException("Informe um nome para o tema.");
+            }
+
+            var sanitizedThemeName = string.Concat(themeName.Split(Path.GetInvalidFileNameChars())).Trim();
+            if (string.IsNullOrEmpty(sanitizedThemeName))
+            {
+                throw new InvalidOperationException("O nome do tema contém caracteres inválidos.");
+            }
+
+            return Path.Combine(rootDirectory, sanitizedThemeName);
+        }
     }
+
+    public sealed record ThemeCreationResult(string Directory, ThemeManifest Manifest);
 }

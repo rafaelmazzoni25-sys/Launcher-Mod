@@ -7,6 +7,7 @@ namespace LauncherSuite.App
         private System.Windows.Forms.TabPage configTabPage;
         private System.Windows.Forms.TabPage updatesTabPage;
         private System.Windows.Forms.TabPage designTabPage;
+        private System.Windows.Forms.TabPage buildTabPage;
 
         protected override void Dispose(bool disposing)
         {
@@ -31,6 +32,7 @@ namespace LauncherSuite.App
             this.modulesTabControl.Controls.Add(this.configTabPage);
             this.modulesTabControl.Controls.Add(this.updatesTabPage);
             this.modulesTabControl.Controls.Add(this.designTabPage);
+            this.modulesTabControl.Controls.Add(this.buildTabPage);
             this.modulesTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modulesTabControl.Location = new System.Drawing.Point(0, 0);
             this.modulesTabControl.Name = "modulesTabControl";
@@ -67,6 +69,16 @@ namespace LauncherSuite.App
             this.designTabPage.TabIndex = 2;
             this.designTabPage.Text = "Design";
             this.designTabPage.UseVisualStyleBackColor = true;
+            //
+            // buildTabPage
+            //
+            this.buildTabPage.Location = new System.Drawing.Point(4, 22);
+            this.buildTabPage.Name = "buildTabPage";
+            this.buildTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.buildTabPage.Size = new System.Drawing.Size(976, 535);
+            this.buildTabPage.TabIndex = 3;
+            this.buildTabPage.Text = "Build";
+            this.buildTabPage.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

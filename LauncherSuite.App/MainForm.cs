@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Forms;
 using ConfigGenerator;
 using Update.Maker;
@@ -7,47 +6,27 @@ namespace LauncherSuite.App
 {
     public partial class MainForm : Form
     {
-        private readonly Form _configGeneratorForm;
-        private readonly Form _updateGeneratorForm;
+        private readonly ConfigGeneratorControl _configControl;
+        private readonly UpdateGeneratorControl _updateControl;
+        private readonly DesignManagerControl _designControl;
+        private readonly BuildWorkflowControl _buildControl;
 
         public MainForm()
         {
             InitializeComponent();
-            _configGeneratorForm = new Form1();
-            _updateGeneratorForm = new lForm();
-            EmbedModule(_configGeneratorForm, configTabPage);
-            EmbedModule(_updateGeneratorForm, updatesTabPage);
-            var designManager = new DesignManagerControl { Dock = DockStyle.Fill };
-            designTabPage.Controls.Add(designManager);
-        }
+            _configControl = new ConfigGeneratorControl { Dock = DockStyle.Fill };
+            _updateControl = new UpdateGeneratorControl { Dock = DockStyle.Fill };
+            _designControl = new DesignManagerControl { Dock = DockStyle.Fill };
+            configTabPage.Controls.Add(_configControl);
+            updatesTabPage.Controls.Add(_updateControl);
+            designTabPage.Controls.Add(_designControl);
 
-        private static void EmbedModule(Form module, TabPage host)
-        {
-            module.TopLevel = false;
-            module.FormBorderStyle = FormBorderStyle.None;
-            module.Dock = DockStyle.Fill;
-            host.Controls.Add(module);
-            module.Show();
-        }
-
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            base.OnFormClosed(e);
-            DisposeModule(_configGeneratorForm);
-            DisposeModule(_updateGeneratorForm);
-        }
-
-        private static void DisposeModule(Form module)
-        {
-            if (module == null)
+            _buildControl = new BuildWorkflowControl(_configControl, _updateControl, _designControl)
             {
-                return;
-            }
+                Dock = DockStyle.Fill
+            };
 
-            if (!module.IsDisposed)
-            {
-                module.Dispose();
-            }
+            buildTabPage.Controls.Add(_buildControl);
         }
     }
 }

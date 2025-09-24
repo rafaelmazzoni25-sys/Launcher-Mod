@@ -37,11 +37,14 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdateGeneratorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UpdateGeneratorControl.Designer.cs">
+      <DependentUpon>UpdateGeneratorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="lForm.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="lForm.Designer.cs">
-      <DependentUpon>lForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.cs" />
@@ -49,7 +52,9 @@
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lForm.resx" />
+    <EmbeddedResource Include="UpdateGeneratorControl.resx">
+      <DependentUpon>UpdateGeneratorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
