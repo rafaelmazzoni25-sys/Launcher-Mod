@@ -38,14 +38,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design\ThemeAssetCatalog.cs" />
-    <Compile Include="Design\ThemeKeys.cs" />
     <Compile Include="Design\ThemeManager.cs" />
-    <Compile Include="Design\ThemeManifest.cs" />
     <Compile Include="Design\ThemeResourceProvider.cs" />
     <Compile Include="Design\ThemeResources.cs" />
     <Compile Include="Design\ThemeSurfaceBinding.cs" />
-    <Compile Include="Cyclic\Redundancy\Check\CRC.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="Program.cs" />
@@ -69,6 +65,12 @@
     <EmbeddedResource Include="MainForm.resx" />
     <EmbeddedResource Include="Options.resx" />
     <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LauncherSuite.Core\LauncherSuite.Core.csproj">
+      <Project>{6B1D7D5D-0218-43F5-80B0-3F8B87FCE45B}</Project>
+      <Name>LauncherSuite.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

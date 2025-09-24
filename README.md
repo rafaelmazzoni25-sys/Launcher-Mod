@@ -2,6 +2,18 @@
 
 Este repositório contém três ferramentas legadas relacionadas ao Launcher do jogo MU: **ConfigGenerator**, **Update Generator** e **Launcher**. O objetivo deste documento é consolidar o plano de unificação e análise prévia para a criação de uma ferramenta única que integre esses módulos e acrescente um gerenciador de design.
 
+## Estrutura atual da solução
+
+A solução `LauncherSuite.sln` consolida os artefatos em cinco projetos principais:
+
+| Projeto | Tipo | Descrição |
+| --- | --- | --- |
+| `LauncherSuite.Core` | Biblioteca | Serviços compartilhados para leitura/escrita do `mu.ini`, geração de manifestos de update, catálogo de temas e contratos de manifesto. |
+| `ConfigGenerator` | WinForms | Ferramenta clássica reutilizada pela suíte via referência de projeto e abastecida pelo núcleo para manipular `mu.ini`. |
+| `Update Generator` | WinForms | Modulo legado hospedado na suíte que aproveita o `UpdateManifestBuilder` do núcleo para copiar arquivos e calcular hashes. |
+| `Launcher` | WinForms | Cliente original que continua responsável por aplicar temas e baixar atualizações, agora consumindo os contratos do núcleo. |
+| `LauncherSuite.App` | WinForms | Shell unificado com abas para Configuração, Updates e Design Manager, incluindo assistente de criação de temas. |
+
 ## Plano estratégico proposto
 
 ### 1. Estrutura da solução unificada

@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using Launcher;
+using LauncherSuite.Core.Design;
 
 namespace Launcher.Design
 {
