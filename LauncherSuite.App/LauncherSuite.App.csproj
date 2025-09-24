@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DCB5A80E-9FFB-4B1B-B2D1-7A3F94B84B7C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LauncherSuite.App</RootNamespace>
+    <AssemblyName>LauncherSuite.App</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DesignManagerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignManagerControl.Designer.cs">
+      <DependentUpon>DesignManagerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuildWorkflowControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BuildWorkflowControl.Designer.cs">
+      <DependentUpon>BuildWorkflowControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DesignManagerControl.resx">
+      <DependentUpon>DesignManagerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuildWorkflowControl.resx">
+      <DependentUpon>BuildWorkflowControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConfigGenerator\ConfigGenerator.csproj">
+      <Project>{03100133-F8E7-4DC4-8E01-A20DAF64A512}</Project>
+      <Name>ConfigGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Launcher\Launcher.csproj">
+      <Project>{BCBFB67E-81CB-4C4A-B189-B86F7F52203E}</Project>
+      <Name>Launcher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LauncherSuite.Core\LauncherSuite.Core.csproj">
+      <Project>{6B1D7D5D-0218-43F5-80B0-3F8B87FCE45B}</Project>
+      <Name>LauncherSuite.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Update Generator\Update Generator.csproj">
+      <Project>{5C29A109-289A-4FFC-BE31-50709A997BD5}</Project>
+      <Name>Update Generator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

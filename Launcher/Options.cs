@@ -4,8 +4,8 @@
 // MVID: 232F895E-1583-4AAE-8C54-19D96214944A
 // Assembly location: C:\Users\Rafael Mazzoni\Documents\Ideias de Revenda\RetroSix\Free Mu CMS 1.2.3\Launcher Free\Launcher Free\Client\Launcher.exe
 
+using Launcher.Design;
 using Launcher.Exile;
-using Launcher.Properties;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -110,21 +110,21 @@ namespace Launcher
       Common.SendMessage(this.Handle, 161, 2, 0);
     }
 
-    private void CloseButton_MouseDown(object sender, MouseEventArgs e) => this.CloseButton.BackgroundImage = (Image) Resources.exit_3;
+    private void CloseButton_MouseDown(object sender, MouseEventArgs e) => this.CloseButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonPressed);
 
-    private void CloseButton_MouseHover(object sender, EventArgs e) => this.CloseButton.BackgroundImage = (Image) Resources.exit_2;
+    private void CloseButton_MouseHover(object sender, EventArgs e) => this.CloseButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonHover);
 
-    private void CloseButton_MouseLeave(object sender, EventArgs e) => this.CloseButton.BackgroundImage = (Image) Resources.exit_1;
+    private void CloseButton_MouseLeave(object sender, EventArgs e) => this.CloseButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonIdle);
 
-    private void CloseButton_MouseUp(object sender, MouseEventArgs e) => this.CloseButton.BackgroundImage = (Image) Resources.exit_1;
+    private void CloseButton_MouseUp(object sender, MouseEventArgs e) => this.CloseButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonIdle);
 
-    private void SaveButton_MouseDown(object sender, MouseEventArgs e) => this.SaveButton.BackgroundImage = (Image) Resources.accept_3;
+    private void SaveButton_MouseDown(object sender, MouseEventArgs e) => this.SaveButton.BackgroundImage = ThemeResources.Get(ThemeKeys.AcceptButtonPressed);
 
-    private void SaveButton_MouseHover(object sender, EventArgs e) => this.SaveButton.BackgroundImage = (Image) Resources.accept_2;
+    private void SaveButton_MouseHover(object sender, EventArgs e) => this.SaveButton.BackgroundImage = ThemeResources.Get(ThemeKeys.AcceptButtonHover);
 
-    private void SaveButton_MouseLeave(object sender, EventArgs e) => this.SaveButton.BackgroundImage = (Image) Resources.accept_1;
+    private void SaveButton_MouseLeave(object sender, EventArgs e) => this.SaveButton.BackgroundImage = ThemeResources.Get(ThemeKeys.AcceptButtonIdle);
 
-    private void SaveButton_MouseUp(object sender, MouseEventArgs e) => this.SaveButton.BackgroundImage = (Image) Resources.accept_1;
+    private void SaveButton_MouseUp(object sender, MouseEventArgs e) => this.SaveButton.BackgroundImage = ThemeResources.Get(ThemeKeys.AcceptButtonIdle);
 
     private void Options_Load(object sender, EventArgs e)
     {
@@ -260,7 +260,7 @@ namespace Launcher
       ((ISupportInitialize) this.CloseButton).BeginInit();
       this.SuspendLayout();
       this.SaveButton.BackColor = Color.Transparent;
-      this.SaveButton.BackgroundImage = (Image) Resources.accept_1;
+      this.SaveButton.BackgroundImage = ThemeResources.Get(ThemeKeys.AcceptButtonIdle);
       this.SaveButton.Cursor = Cursors.Hand;
       this.SaveButton.Location = new Point(170, 412);
       this.SaveButton.Name = "SaveButton";
@@ -273,7 +273,7 @@ namespace Launcher
       this.SaveButton.MouseHover += new EventHandler(this.SaveButton_MouseHover);
       this.SaveButton.MouseUp += new MouseEventHandler(this.SaveButton_MouseUp);
       this.CloseButton.BackColor = Color.Transparent;
-      this.CloseButton.BackgroundImage = (Image) Resources.exit_1;
+      this.CloseButton.BackgroundImage = ThemeResources.Get(ThemeKeys.ExitButtonIdle);
       this.CloseButton.Cursor = Cursors.Hand;
       this.CloseButton.Location = new Point(426, 2);
       this.CloseButton.Name = "CloseButton";
@@ -439,7 +439,7 @@ namespace Launcher
       this.label4.Visible = false;
       this.AutoScaleDimensions = new SizeF(6f, 13f);
       this.AutoScaleMode = AutoScaleMode.Font;
-      this.BackgroundImage = (Image) Resources.setting_back;
+      this.BackgroundImage = ThemeResources.Get(ThemeKeys.OptionsBackground);
       this.BackgroundImageLayout = ImageLayout.None;
       this.ClientSize = new Size(446, 461);
       this.Controls.Add((Control) this.label4);
